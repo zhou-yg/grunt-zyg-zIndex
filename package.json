@@ -1,0 +1,41 @@
+{
+  "name": "grunt-zyg-zIndex",
+  "description": "The best Grunt plugin ever.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/zyg/grunt-zyg-zIndex",
+  "author": {
+    "name": "zhou-yg",
+    "email": "zhou.y.g890@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/zyg/grunt-zyg-zIndex.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zyg/grunt-zyg-zIndex/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/zyg/grunt-zyg-zIndex/blob/master/LICENSE-MIT"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "x.x.x",
+    "grunt-contrib-clean": "x.x.x",
+    "grunt-contrib-nodeunit": "x.x.x",
+    "grunt": "~0.4.5"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.5"
+  },
+  "keywords": [
+    "gruntplugin"
+  ]
+}
