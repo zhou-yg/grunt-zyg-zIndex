@@ -10,8 +10,14 @@
 
 module.exports = function(grunt) {
 
-  // Please see the Grunt documentation for more information regarding task
-  // creation: http://gruntjs.com/creating-tasks
+  //查找 z-index的正则
+  var zIndexRegExp = /(z-index:)[\n\s]*(\d+)/g,
+      zIndexCharPre = 'ZINDEX_VALUE';
+
+  function createChar(i){
+
+    return zIndexCharPre + i;
+  }
 
   grunt.registerMultiTask('zyg_zIndex', 'The best Grunt plugin ever.', function() {
     // Merge task-specific and/or target-specific options with these defaults.
@@ -20,7 +26,10 @@ module.exports = function(grunt) {
       separator: ', '
     });
 
-    var 
+    var allSrc = [],i= 0,
+        charValueMap = [],
+        basic = 1,
+        dis = options.dis ? options.dis : 10;
     // Iterate over all specified file groups.
     this.files.forEach(function(f) {
       // Concat specified files.
@@ -34,20 +43,30 @@ module.exports = function(grunt) {
         }
       }).map(function(filepath) {
         // Read file source.
-        return grunt.file.read(filepath);
+        return {
+          filepath:filepath,
+          dest: f.dest,
+          src:grunt.file.read(filepath)
+        };
+      }).filter(function(fileObj){
+        return fileObj.src.indexOf('z-index') !== -1;
       });
 
-      console.log('src:',src);
-
-      // Handle options.
-      src += options.punctuation;
+      allSrc = allSrc.concat(src);
 
       // Write the destination file.
-      grunt.file.write(f.dest, src);
+      //grunt.file.write(f.dest, src);
 
       // Print a success message.
-      grunt.log.writeln('File "' + f.dest + '" created.');
+      grunt.log.writeln('read all css.');
+    });
+
+    allSrc.forEach(function(srcObj){
+      var src = srcObj.src;
+      src.replace(zIndexRegExp,function(all,zIndex,value,index){
+        var char = createChar(i++);
+        return zIndex + char;
+      });
     });
   });
-
 };

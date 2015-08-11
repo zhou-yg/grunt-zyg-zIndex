@@ -30,21 +30,12 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     zyg_zIndex: {
-      default_options: {
+      files: {
         options: {
+          dis:7
         },
-        files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
-      },
-      custom_options: {
-        options: {
-          separator: ': ',
-          punctuation: ' !!!'
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
+        src: ['test/fixtures/a','test/fixtures/b'],
+        dest: 'tmp/*',
       }
     },
 
@@ -70,4 +61,6 @@ module.exports = function(grunt) {
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);
 
+  //占位
+  grunt.registerTask('default', ['zyg_zIndex']);
 };
