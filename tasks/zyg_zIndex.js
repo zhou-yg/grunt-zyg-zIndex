@@ -15,7 +15,6 @@ module.exports = function(grunt) {
       zIndexCharPre = 'ZINDEX_VALUE';
 
   function createChar(i){
-
     return zIndexCharPre + i;
   }
 
@@ -30,6 +29,7 @@ module.exports = function(grunt) {
         charValueMap = [],
         basic = 1,
         dis = options.dis ? options.dis : 10;
+
     // Iterate over all specified file groups.
     this.files.forEach(function(f) {
       // Concat specified files.
@@ -65,8 +65,44 @@ module.exports = function(grunt) {
       var src = srcObj.src;
       src.replace(zIndexRegExp,function(all,zIndex,value,index){
         var char = createChar(i++);
+        value = parseInt(value);
+
+        if(value!==0){
+          charValueMap.push({
+            char:char,
+            value:value
+          });
+        }
         return zIndex + char;
       });
+    });
+
+    charValueMap.sort(function(pre,next){
+      return pre.value > next.value;
+    });
+    console.log(dis,charValueMap);
+
+    var old;
+    charValueMap = charValueMap.map(function(ele,i){
+      var pre = charValueMap[i-1];
+      if(pre){
+        if(old === ele.value){
+          ele.value = pre.value;
+        }else{
+          old = ele.value;
+          ele.value = basic + i * dis;
+        }
+      }else{
+        old = ele.value;
+        ele.value = basic + i * dis;
+      }
+      return ele;
+    });
+
+    console.log(charValueMap);
+    allSrc.forEach(function(srcObj){
+      var src = srcObj;
+
     });
   });
 };
